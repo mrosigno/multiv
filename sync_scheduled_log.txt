@@ -1,0 +1,235 @@
+[2026-07-06 13:00:11]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 13:00:11] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 13:20:03] === AVVIO sync incrementale | dal: 2026-07-06 13:00:11 ===
+[2026-07-06 13:20:03]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 13:20:03] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 13:40:03] === AVVIO sync incrementale | dal: 2026-07-06 13:20:03 ===
+[2026-07-06 13:40:03]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 13:40:03] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 14:00:07] === AVVIO sync incrementale | dal: 2026-07-06 13:40:03 ===
+[2026-07-06 14:00:08]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 14:00:08] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 14:20:03] === AVVIO sync incrementale | dal: 2026-07-06 14:00:07 ===
+[2026-07-06 14:20:04]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 14:20:04] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 14:40:03] === AVVIO sync incrementale | dal: 2026-07-06 14:20:03 ===
+[2026-07-06 14:40:03]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 14:40:04] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 15:00:07] === AVVIO sync incrementale | dal: 2026-07-06 14:40:03 ===
+[2026-07-06 15:00:08]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 15:00:08] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 15:20:03] === AVVIO sync incrementale | dal: 2026-07-06 15:00:07 ===
+[2026-07-06 15:20:03]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 15:20:03] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 15:40:03] === AVVIO sync incrementale | dal: 2026-07-06 15:20:03 ===
+[2026-07-06 15:40:03]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 15:40:03] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 16:00:10] === AVVIO sync incrementale | dal: 2026-07-06 15:40:03 ===
+[2026-07-06 16:00:10]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 16:00:10] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 16:20:03] === AVVIO sync incrementale | dal: 2026-07-06 16:00:10 ===
+[2026-07-06 16:20:03]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 16:20:03] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 16:40:03] === AVVIO sync incrementale | dal: 2026-07-06 16:20:03 ===
+[2026-07-06 16:40:03]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 16:40:03] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 17:00:10] === AVVIO sync incrementale | dal: 2026-07-06 16:40:03 ===
+[2026-07-06 17:00:10]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `fatture`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `prima_nota_casa`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `scarichi`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `ddt`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 17:00:10] === FINE sync: OK - 15 tabelle, 0 righe copiate. ===
+[2026-07-06 17:20:03] === AVVIO sync incrementale | dal: 2026-07-06 17:00:10 ===
+[2026-07-06 17:20:04]   `fatturecorpo`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:04]   `fatture`: 2 righe sincronizzate.
+[2026-07-06 17:20:04]   `prima_nota_casa`: 1 righe sincronizzate.
+[2026-07-06 17:20:04]   `scadenzario`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:04]   `pagamenti`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:04]   `carichi`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:05]   `scarichi`: 3 righe sincronizzate.
+[2026-07-06 17:20:05]   `articoli_prisma`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:05]   `fattpaservizi`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:05]   `fattpainvii`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:05]   `clienti`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:05]   `ddt`: 2 righe sincronizzate.
+[2026-07-06 17:20:05]   `trasferimenti`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:05]   `destinazioni`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:05]   `deduzioni`: nessuna modifica (già aggiornata).
+[2026-07-06 17:20:05] === FINE sync: OK - 15 tabelle, 8 righe copiate. ===
