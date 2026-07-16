@@ -16,6 +16,9 @@ import { useQueryClient, useQuery } from '@tanstack/react-query';
 import { API_HOST } from '@/config';
 import { useAuthAccess } from '@/hooks/useAuthAccess'; 
 
+import { Camera } from 'lucide-react'; // Aggiungi Camera tra le icone importate
+import BarcodeScannerModal from './BarcodeScannerModal'; // Importa il nuovo componente
+
 import ArticoloFormModal from './ArticoloFormModal';
 import ContabilizzazioneModal from './ContabilizzazioneModal';
 import MovimentazioneMagazzinoModal from './MovimentazioneMagazzinoModal';
@@ -1013,6 +1016,10 @@ const RowEditForm = ({ row, docId, aliquoteList, nextOrdine, onSave, onClose, li
   const isEdit = !!row;
   const { data: articoliData = [] } = useArticoli();
   const { data: repartiData = [] } = useReparti();
+  const auth = useAuthAccess();
+
+  const canEditExisting = auth.isAdmin || auth.level === 2 || auth.level >= 4;
+  const isReadOnly = isEdit && !canEditExisting;
 
   const [form, setForm] = useState<any>(row || { IDFatt: docId, Codart: '', Descrzione: '', Quant: 1, ImpUnit: 0, sconto: 0, Iva: 1, unmis: 'PZ', ordine: nextOrdine, impon: 0, imposta: 0, ttiva: 0, Magazz: 1 });
 
@@ -1020,6 +1027,30 @@ const RowEditForm = ({ row, docId, aliquoteList, nextOrdine, onSave, onClose, li
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // --- STATI FOTOCAMERA E SICUREZZA ---
+  const [isScanning, setIsScanning] = useState(false);
+  const hasCameraSupport = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+
+  // --- GESTIONE DELLA SCANSIONE ---
+  const handleScanSuccess = (scannedCode: string) => {
+    setIsScanning(false);
+    const val = scannedCode.trim().toUpperCase();
+    
+    // Cerca l'articolo nel database scaricato in base al codice o al barcode
+    const match = articoliData.find((a: any) => 
+      (a.Codice || '').toUpperCase() === val || 
+      String(a.barcode || '').toUpperCase() === val
+    );
+
+    if (match) {
+      handleArticleSelect(match); // Compila automaticamente la riga
+    } else {
+      // Se non lo trova, precompila la ricerca e apre la tendina
+      setSearchQuery(val);
+      setIsSearchOpen(true);
+    }
+  };
 
   useEffect(() => {
     if (isSearchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
@@ -1064,7 +1095,11 @@ const RowEditForm = ({ row, docId, aliquoteList, nextOrdine, onSave, onClose, li
     }
   };
   
-  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); onSave(recalc(form)); };
+  const handleSubmit = (e: React.FormEvent) => { 
+    e.preventDefault(); 
+    if (isReadOnly) return;
+    onSave(recalc(form)); 
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'F3') {
@@ -1097,19 +1132,20 @@ const RowEditForm = ({ row, docId, aliquoteList, nextOrdine, onSave, onClose, li
     }
   };
   
-  
-  
-  const inputClass = "w-full px-3 py-2.5 rounded-lg border border-input bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50";
+  const inputClass = `w-full px-3 py-2.5 rounded-lg border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-70 disabled:cursor-not-allowed transition-colors ${isReadOnly ? 'bg-secondary/30 border-input text-muted-foreground' : 'bg-background border-input text-foreground'}`;
 
   return (
     <>
-      <div className="fixed inset-0 bg-foreground/40 backdrop-blur-sm z-[110] flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={onClose}>
+      <div className="fixed inset-0 bg-foreground/40 backdrop-blur-sm z-[110] flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in" onClick={onClose}>
         <div onClick={e => e.stopPropagation()} className="bg-card sm:rounded-2xl rounded-t-2xl border border-border shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col animate-fade-up sm:animate-fade-in">
           <div className="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
-            <h3 className="text-lg font-bold text-foreground">{isEdit ? 'Modifica Riga' : 'Nuova Riga'}</h3>
+            <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+              {isReadOnly ? 'Dettaglio Riga' : isEdit ? 'Modifica Riga' : 'Nuova Riga'}
+              {isReadOnly && <span className="px-2 py-0.5 bg-red-100 text-red-600 text-[10px] font-bold uppercase rounded border border-red-200 shrink-0">Sola Lettura</span>}
+            </h3>
             <button onClick={onClose} className="p-2 rounded-full bg-secondary hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"><X className="w-5 h-5" /></button>
           </div>
-          <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="p-6 space-y-5 overflow-y-auto flex-1 custom-scrollbar">
+          <form id="row-form" onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="p-6 space-y-5 overflow-y-auto flex-1 custom-scrollbar">
             
             <div className="relative">
               <div className="flex justify-between items-end mb-1.5">
@@ -1122,79 +1158,98 @@ const RowEditForm = ({ row, docId, aliquoteList, nextOrdine, onSave, onClose, li
                     </button>
                   )}
                   <button type="button" onClick={(e) => { e.stopPropagation(); const currentCode = (form.Codart || '').trim().toLowerCase(); const art = articoliData.find((a: any) => (a.Codice || '').trim().toLowerCase() === currentCode) || null; onOpenArticolo(art, (savedArt: any) => handleArticleSelect(savedArt)); }} className="flex items-center gap-1 text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-1 rounded hover:bg-blue-600 hover:text-white transition-colors shadow-sm">
-                    <Pencil className="w-3 h-3" /> APRI SCHEDA
+                    <Pencil className="w-3 h-3" /> {isReadOnly ? 'VEDI SCHEDA' : 'APRI SCHEDA'}
                   </button>
                 </div>
               </div>
               
-			 {/* CAMPO DI RICERCA CON INPUT MISTO BARCODE / MODALE */}
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  value={form.Codart || ''}
-                  onChange={e => update('Codart', e.target.value.toUpperCase())}
-                  onKeyDown={handleCodeInputKey}
-                  placeholder="Codice o Barcode (Invio/Tab per caricare, oppure clicca la lente)..."
-                  className="w-full pl-3 pr-10 py-2.5 rounded-lg border border-blue-300 bg-white text-primary text-sm font-mono font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/50 hover:border-blue-500 transition-colors shadow-sm"
-                />
-                <button
-                  type="button"
-                  onClick={(e) => { e.stopPropagation(); setSearchQuery(form.Codart || ''); setIsSearchOpen(true); }}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-blue-500 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md cursor-pointer transition-colors"
-                  title="Apri Ricerca Avanzata"
-                >
-                  <Search className="w-4 h-4" />
-                </button>
+              {/* CAMPO DI RICERCA CON FOTOCAMERA E INPUT MISTO */}
+              <div className="flex gap-2 w-full">
+                
+                {/* BOTTONE FOTOCAMERA */}
+                {!isReadOnly && hasCameraSupport && (
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setIsScanning(true); }}
+                    className="flex items-center justify-center w-12 h-[42px] bg-amber-100 text-amber-700 hover:bg-amber-500 hover:text-white rounded-lg border border-amber-300 transition-colors shadow-sm shrink-0 active:scale-95"
+                    title="Scansiona con Fotocamera"
+                  >
+                    <Camera className="w-5 h-5" />
+                  </button>
+                )}
+
+                {/* CAMPO DI RICERCA TESTUALE */}
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    value={form.Codart || ''}
+                    onChange={e => update('Codart', e.target.value.toUpperCase())}
+                    onKeyDown={handleCodeInputKey}
+                    placeholder="Codice o Barcode (Invio/Tab per caricare)..."
+                    className={`w-full pl-3 pr-10 py-2.5 rounded-lg border text-sm font-mono font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-colors shadow-sm ${isReadOnly ? 'bg-secondary/30 text-muted-foreground border-input' : 'border-blue-300 bg-white text-primary hover:border-blue-500'}`}
+                    disabled={isReadOnly}
+                  />
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setSearchQuery(form.Codart || ''); setIsSearchOpen(true); }}
+                    className={`absolute right-1 top-1/2 -translate-y-1/2 p-1.5 rounded-md transition-colors ${isReadOnly ? 'text-muted-foreground bg-secondary cursor-not-allowed' : 'text-blue-500 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 cursor-pointer'}`}
+                    title="Apri Ricerca Avanzata"
+                    disabled={isReadOnly}
+                  >
+                    <Search className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Codice</label><input type="text" value={form.Codart || ''} onChange={e => update('Codart', e.target.value)} className={`${inputClass} font-mono font-bold`} /></div>
-              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">UM</label><select value={form.unmis || 'PZ'} onChange={e => update('unmis', e.target.value)} className={inputClass}>{['PZ', 'MT', 'KG', 'LT', 'CF', 'MQ', 'ML', 'NR'].map(u => <option key={u}>{u}</option>)}</select></div>
+              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Codice</label><input type="text" disabled={isReadOnly} value={form.Codart || ''} onChange={e => update('Codart', e.target.value)} className={`${inputClass} font-mono font-bold`} /></div>
+              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">UM</label><select disabled={isReadOnly} value={form.unmis || 'PZ'} onChange={e => update('unmis', e.target.value)} className={inputClass}>{['PZ', 'MT', 'KG', 'LT', 'CF', 'MQ', 'ML', 'NR'].map(u => <option key={u}>{u}</option>)}</select></div>
             </div>
-            <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Descrizione</label><input type="text" value={form.Descrzione || ''} onChange={e => update('Descrzione', e.target.value)} className={inputClass} required /></div>
+            <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Descrizione</label><input type="text" disabled={isReadOnly} value={form.Descrzione || ''} onChange={e => update('Descrzione', e.target.value)} className={inputClass} required /></div>
             <div className="grid grid-cols-2 gap-4">
-              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Quantità</label><input type="number" step="0.01" value={form.Quant ?? 1} onChange={e => update('Quant', +e.target.value)} className={`${inputClass} text-right font-mono font-bold text-lg`} /></div>
-              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Prezzo Unit.</label><input type="number" step="0.01" value={form.ImpUnit ?? 0} onChange={e => update('ImpUnit', +e.target.value)} className={`${inputClass} text-right font-mono`} /></div>
-              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Sconto %</label><input type="number" step="0.01" value={form.sconto ?? 0} onChange={e => update('sconto', +e.target.value)} className={`${inputClass} text-right font-mono text-destructive`} /></div>
-              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Aliquota IVA</label><select value={form.Iva ?? 1} onChange={e => update('Iva', +e.target.value)} className={inputClass}>{aliquoteList.map((a: any) => <option key={a.Id} value={a.Id}>{a.aliquota}%</option>)}</select></div>
+              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Quantità</label><input type="number" disabled={isReadOnly} step="0.01" value={form.Quant ?? 1} onChange={e => update('Quant', +e.target.value)} className={`${inputClass} text-right font-mono font-bold text-lg`} /></div>
+              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Prezzo Unit.</label><input type="number" disabled={isReadOnly} step="0.01" value={form.ImpUnit ?? 0} onChange={e => update('ImpUnit', +e.target.value)} className={`${inputClass} text-right font-mono`} /></div>
+              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Sconto %</label><input type="number" disabled={isReadOnly} step="0.01" value={form.sconto ?? 0} onChange={e => update('sconto', +e.target.value)} className={`${inputClass} text-right font-mono text-destructive`} /></div>
+              <div><label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Aliquota IVA</label><select disabled={isReadOnly} value={form.Iva ?? 1} onChange={e => update('Iva', +e.target.value)} className={inputClass}>{aliquoteList.map((a: any) => <option key={a.Id} value={a.Id}>{a.aliquota}%</option>)}</select></div>
             </div>
             <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 space-y-2 mt-2">
               <div className="flex justify-between text-sm"><span className="text-muted-foreground">Imponibile</span><span className="font-mono font-medium">{formatCurrency(form.impon || 0)}</span></div>
               <div className="flex justify-between text-sm"><span className="text-muted-foreground">Imposta</span><span className="font-mono font-medium">{formatCurrency(form.imposta || 0)}</span></div>
               <div className="flex justify-between text-base border-t border-primary/20 pt-2 mt-2"><span className="font-bold uppercase tracking-wider">Totale</span><span className="font-mono font-black text-primary">{formatCurrency(form.ttiva || 0)}</span></div>
             </div>
+          </form>
 
-			{/* FOOTER DEL MODALE CON TASTO ELIMINA */}
-            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 pt-5 mt-2 border-t border-border">
-              
-              {/* LATO SINISTRO: Tasto Elimina (Visibile solo se la riga esiste già) */}
-              <div className="w-full sm:w-auto">
-                {isEdit && onDelete && (
-                  <button 
-                    type="button" 
-                    onClick={() => onDelete(form.ID)} 
-                    className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-red-50 text-red-600 text-sm font-bold hover:bg-red-100 transition-colors border border-red-200 shadow-sm"
-                  >
-                    <Trash2 className="w-4 h-4" /> Elimina Riga
-                  </button>
-                )}
-              </div>
-              
-              {/* LATO DESTRO: Annulla e Salva */}
-              <div className="flex gap-2 w-full sm:w-auto">
-                <button type="button" onClick={onClose} className="flex-1 sm:flex-none px-5 py-2.5 rounded-lg border border-input text-sm font-medium text-muted-foreground hover:bg-secondary transition-colors">
-                  Annulla
+          {/* FOOTER DEL MODALE CON TASTO ELIMINA */}
+          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 px-6 py-4 border-t border-border bg-card sm:rounded-b-xl shrink-0">
+            
+            {/* LATO SINISTRO: Tasto Elimina */}
+            <div className="w-full sm:w-auto">
+              {isEdit && !isReadOnly && onDelete && auth.canDelete && (
+                <button 
+                  type="button" 
+                  onClick={() => onDelete(form.ID)} 
+                  className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-red-50 text-red-600 text-sm font-bold hover:bg-red-100 transition-colors border border-red-200 shadow-sm"
+                >
+                  <Trash2 className="w-4 h-4" /> Elimina Riga
                 </button>
-                <button type="submit" className="flex-[2] sm:flex-none px-6 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity shadow-sm">
+              )}
+            </div>
+            
+            {/* LATO DESTRO: Annulla e Salva */}
+            <div className="flex gap-2 w-full sm:w-auto">
+              <button type="button" onClick={onClose} className="flex-1 sm:flex-none px-5 py-2.5 rounded-lg border border-input text-sm font-medium text-muted-foreground hover:bg-secondary transition-colors">
+                {isReadOnly ? 'Chiudi' : 'Annulla'}
+              </button>
+              {!isReadOnly && (
+                <button type="submit" form="row-form" className="flex-[2] sm:flex-none px-6 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity shadow-sm">
                   Salva Riga
                 </button>
-              </div>
-
+              )}
             </div>
 
-          </form>
+          </div>
         </div>
       </div>
 
@@ -1235,7 +1290,7 @@ const RowEditForm = ({ row, docId, aliquoteList, nextOrdine, onSave, onClose, li
                 <div className="p-12 text-center text-red-400 font-medium">Nessun articolo corrispondente trovato.</div>
               ) : (
 
-			  <table className="w-full text-sm text-left">
+                <table className="w-full text-sm text-left">
                   <thead className="bg-slate-50 sticky top-0 border-b border-slate-200 shadow-sm text-[10px] sm:text-xs uppercase text-slate-500">
                     <tr>
                       <th className="px-4 py-2">Codice</th>
@@ -1259,13 +1314,22 @@ const RowEditForm = ({ row, docId, aliquoteList, nextOrdine, onSave, onClose, li
                     })}
                   </tbody>
                 </table>
-			  
+              
               )}
             </div>
           </div>
         </div>,
         document.body
       )}
+
+      {/* MODALE FOTOCAMERA FOCUSED - FIXATO! IL MODALE ADESSO È QUI! */}
+      {isScanning && (
+        <BarcodeScannerModal 
+          onScan={handleScanSuccess} 
+          onClose={() => setIsScanning(false)} 
+        />
+      )}
+
     </>
   );
 };
