@@ -116,6 +116,7 @@ const DocumentDetail = ({ document: doc, onClose, onEdit, onToggle, onDeleteDocu
   const [showMovimentaMagazzino, setShowMovimentaMagazzino] = useState(false);
   
   const [printActionOpen, setPrintActionOpen] = useState(false);
+  const [showMovimentaPrompt, setShowMovimentaPrompt] = useState(false);
   const [selectedPrintMode, setSelectedPrintMode] = useState<'print' | 'pdf' | null>(null);
   const [pdfPromptOpen, setPdfPromptOpen] = useState(false);
   const [showTrasportoModal, setShowTrasportoModal] = useState(false);
@@ -129,6 +130,7 @@ const DocumentDetail = ({ document: doc, onClose, onEdit, onToggle, onDeleteDocu
   const [articoloModalConfig, setArticoloModalConfig] = useState<{ isOpen: boolean; articolo: any | null; onSuccess?: (art: any) => void; }>({ isOpen: false, articolo: null });
   const [historyModal, setHistoryModal] = useState<{ isOpen: boolean, codart: string }>({ isOpen: false, codart: '' });
   const [showFooter, setShowFooter] = useState(false);
+ 
   
   const hasAutoOpenedFor = useRef<number | null>(null);
 
@@ -189,7 +191,22 @@ const DocumentDetail = ({ document: doc, onClose, onEdit, onToggle, onDeleteDocu
   
   const mag = (magazziniData ||[]).find((m: any) => Number(m.cod) === Number(doc.codmag));
   const modPagObj = modalitaPagamentoData.find((m: any) => Number(m.idmod) === Number(doc.ModPag));
+  
+// --- WIZARD AUTOMATICO MAGAZZINO (Logica Corazzata) ---
+  const checkAndPromptMovimentazione = () => {
+    // Puliamo le stringhe da eventuali spazi e maiuscole/minuscole
+    const mov = String(tipoDocObj?.movmagaz || '').trim().toUpperCase();
+    const isMag = mov === 'C' || mov === 'S' || mov === 'T';
+    const isNotCaricata = Number(doc?.caricata || 0) === 0;
 
+    if (isMag && isNotCaricata && auth.canEdit) {
+      setTimeout(() => setShowMovimentaPrompt(true), 500);
+      return true; // Ritorna true se il popup si sta aprendo
+    }
+    return false; // Ritorna false se non c'è bisogno del popup
+  };
+
+  
   const handleOpenArticolo = (articolo: any, onSuccess?: (art: any) => void) => { setArticoloModalConfig({ isOpen: true, articolo, onSuccess }); };
   const handleOpenHistory = (codart: string) => { if (codart && codart.trim() !== '') { setHistoryModal({ isOpen: true, codart: codart.trim() }); } };
 
@@ -275,6 +292,9 @@ const DocumentDetail = ({ document: doc, onClose, onEdit, onToggle, onDeleteDocu
 
     if (mode === 'pdf' && result) {
       setEmailData(result);
+    } else if (mode === 'print') {
+      // STAMPA EFFETTUATA: Verifica se serve muovere il magazzino!
+      checkAndPromptMovimentazione();
     }
   };
 
@@ -725,7 +745,7 @@ const DocumentDetail = ({ document: doc, onClose, onEdit, onToggle, onDeleteDocu
           />
         )}
 
-        {emailData && (
+		{emailData && (
           <EmailSenderModal
             pdfData={emailData}
             cliente={cliente}
@@ -733,7 +753,9 @@ const DocumentDetail = ({ document: doc, onClose, onEdit, onToggle, onDeleteDocu
             onClose={() => setEmailData(null)}
             onSuccess={() => {
               setEmailData(null);
-              setShowSuccess(true);
+              // Verifica se serve muovere il magazzino. Se non serve, mostra il popup "Operazione Completata"
+              const willPrompt = checkAndPromptMovimentazione();
+              if (!willPrompt) setShowSuccess(true);
             }}
           />
         )}
@@ -759,7 +781,23 @@ const DocumentDetail = ({ document: doc, onClose, onEdit, onToggle, onDeleteDocu
           confirmLabel="Sì, elimina"
         />
         <ConfirmDialog isOpen={showSuccess} type="success-auto" title="Operazione Completata" onClose={() => setShowSuccess(false)} />
+		
+			  {/* WIZARD: PROPOSTA MOVIMENTAZIONE DOPO STAMPA/INVIO MAIL */}
+        <ConfirmDialog 
+          isOpen={showMovimentaPrompt} 
+          type="info" 
+          title="Documento Generato" 
+          message={<>L'esportazione del documento è andata a buon fine.<br/><br/>Vuoi procedere subito con il <strong>{String(tipoDocObj?.movmagaz || '').trim().toUpperCase() === 'C' ? 'CARICO' : 'SCARICO'} di magazzino</strong> per allineare le giacenze?</>} 
+          confirmLabel="Sì, Movimenta"
+          onClose={() => setShowMovimentaPrompt(false)} 
+          onConfirm={() => {
+            setShowMovimentaPrompt(false);
+            // Leggero ritardo per permettere la chiusura morbida dell'avviso
+            setTimeout(() => setShowMovimentaMagazzino(true), 300);
+          }} 
+        />
 
+		
         {xmlSuccessModal.isOpen && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center bg-foreground/60 backdrop-blur-sm p-4 animate-fade-in">
              <div className="bg-card rounded-2xl shadow-2xl p-6 text-center border border-border">
@@ -1405,6 +1443,8 @@ const StoricoPrezziModal = ({ codart, idCliente, docId, ragioneSociale, onClose 
           )}
         </div>
       </div>
+
+
     </div>
   );
 }
